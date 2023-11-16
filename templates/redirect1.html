@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}Question page{% endblock title %}
+{% block body %}
+<style>
+    .container {
+        margin-top: 2rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+    }
+
+    .img {
+        height: 18rem;
+        width: 20rem;
+        margin-right: 2rem;
+    }
+
+    h2 {
+        text-align: left;
+        width: 100%; /* Make the text take up the full width on smaller screens */
+    }
+
+    textarea {
+        width: 100%; /* Make the textareas take up the full width on smaller screens */
+        box-sizing: border-box; /* Include padding and border in the width */
+    }
+
+    @media only screen and (max-width: 768px) {
+        .container {
+            height: auto; /* Adjust the height on smaller screens */
+        }
+
+        .img {
+            margin-right: 0; /* Remove the margin on smaller screens */
+            margin-bottom: 1rem; /* Add some space below the image on smaller screens */
+        }
+    }
+    .button {
+        position: relative;
+        padding: 10px 22px;
+        border-radius: 6px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        background-color: #7d2ae8;
+        transition: all 0.2s ease;
+      }
+      
+      .button:active {
+        transform: scale(0.96);
+      }
+      
+      .button:before,
+      .button:after {
+        position: absolute;
+        content: "";
+        width: 150%;
+        left: 50%;
+        height: 100%;
+        transform: translateX(-50%);
+        z-index: -1000;
+        background-repeat: no-repeat;
+      }
+      
+      .button:hover:before {
+        top: -70%;
+        background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+        background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+          10% 10%, 18% 18%;
+        background-position: 50% 120%;
+        animation: greentopBubbles 0.6s ease;
+      }
+      
+      @keyframes greentopBubbles {
+        0% {
+          background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+            40% 90%, 55% 90%, 70% 90%;
+        }
+      
+        50% {
+          background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+            50% 50%, 65% 20%, 90% 30%;
+        }
+      
+        100% {
+          background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+            50% 40%, 65% 10%, 90% 20%;
+          background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+        }
+      }
+      
+      .button:hover::after {
+        bottom: -70%;
+        background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+          radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+        background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+        background-position: 50% 0%;
+        animation: greenbottomBubbles 0.6s ease;
+      }
+      
+      @keyframes greenbottomBubbles {
+        0% {
+          background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+            70% -10%, 70% 0%;
+        }
+      
+        50% {
+          background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+            105% 0%;
+        }
+      
+        100% {
+          background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+            110% 10%;
+          background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+        }
+      }  
+      .btn{
+        
+        display: flex;
+    background-color:#ff0000;
+    height: 3rem;
+    width: 8rem;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border: revert-layer;
+    border-radius: 2rem;
+    font-size: larger;
+    transition: background-color 0.3s ease;
+    animation: gradientAnimation 4s infinite;
+      }
+      .btn:hover{
+        background-color: rgb(0, 255, 17);
+        transition: background-color 0.3s ease;
+
+      }
+      
+</style>
+
+<h2>Welcome To the Quiz Contest: Check your level HERE!</h2>
+<form action="{% url 'redirect1' %}" method="post">
+    {% csrf_token %}
+    <div class="container">
+        <div class="img"><img src="/static/q.jpeg" alt="" srcset=""></div>
+        <div>
+            <h2>ENter your name please</h2>
+            <textarea name="name" id="name" cols="50" rows="2" placeholder="Write your answer here!"></textarea>
+            <br><br>
+            <h2>1: Who is the developer of the C language...</h2>
+            <textarea name="t1" id="t1" cols="50" rows="2" placeholder="Write your answer here!"></textarea>
+            <br><br>
+
+            <h2>2: Why is C called a mid-level programming language?...</h2>
+            <textarea name="t2" id="t2" cols="50" rows="2" placeholder="Write your answer here!"></textarea>
+            <br><br>
+
+            <h2>3: What are the basic data types supported in the C Programming Language?...</h2>
+            <textarea name="t3" id="t3" cols="50" rows="2" placeholder="Write your answer here!"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn">Submit </button>
+</form>
+
+
+{% endblock body %}

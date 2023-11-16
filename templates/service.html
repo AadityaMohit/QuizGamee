@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+{% block title %}Service{% endblock title %}
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5; /* Light gray background */
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+        background-color: #444;
+        padding: 10px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    nav a:hover {
+        color: #ff9900;
+    }
+
+    .content {
+        padding: 20px;
+        background-color: #fff; /* White background for content */
+        border-radius: 8px;
+        margin: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+        transition: transform 0.3s ease; /* Smooth scale transition on hover */
+    }
+
+    .content:hover {
+        transform: scale(1.02); /* Scale up on hover */
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    /* Responsive styles */
+    @media only screen and (max-width: 600px) {
+        .content {
+            margin: 10px;
+        }
+    }
+
+    /* Animation for the service items */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .service-item {
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    /* Image animation class */
+    .animated-img {
+        animation: fadeInUp 1s ease-in-out;
+        max-width: 100%; /* Make the images responsive */
+        height: auto;
+        border-radius: 8px;
+    }
+    .modal {
+        width: 450px;
+        background: linear-gradient(180deg, #DCF9E0 0%, #FFFFFF 30.21%);
+        box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+      }
+      
+      .banner {
+        width: 100%;
+        height: 30px;
+        margin: 0;
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+      
+      .title {
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 21px;
+        text-align: center;
+        color: #2B2B2F;
+        margin-bottom: 15px;
+      }
+      
+      .description {
+        max-width: 80%;
+        margin: auto;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        text-align: center;
+        color: #5F5D6B;
+      }
+      
+      .tab-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        position: relative;
+        padding: 2px;
+        background-color: #ebebec;
+        border-radius: 9px;
+        margin: 10px 20px 0px 20px;
+      }
+      
+      .indicator {
+        content: "";
+        width: 50%;
+        height: 28px;
+        background: #FFFFFF;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        z-index: 9;
+        border: 0.5px solid rgba(0, 0, 0, 0.04);
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+        border-radius: 7px;
+        transition: all 0.2s ease-out;
+      }
+      
+      .tab {
+        width: 50%;
+        height: 28px;
+        position: relative;
+        z-index: 99;
+        background-color: transparent;
+        border: 0;
+        outline: none;
+        flex: none;
+        align-self: stretch;
+        flex-grow: 1;
+        cursor: pointer;
+        font-weight: 500;
+      }
+      
+      .tab--1:hover ~ .indicator {
+        left: 2px;
+      }
+      
+      .tab--2:hover ~ .indicator {
+        left: calc(50% - 2px);
+      }
+      
+      .benefits {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .benefits > span {
+        font-size: 15px;
+        color: #2B2B2F;
+        font-weight: 700;
+      }
+      
+      .benefits ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .benefits ul li {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+      }
+      
+      .benefits ul li span {
+        font-weight: 600;
+        font-size: 12px;
+        color: #5F5D6B;
+      }
+      
+      .modal--footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        border-top: 1px solid #ebebec;
+      }
+      
+      .price {
+        position: relative;
+        font-size: 32px;
+        color: #2B2B2F;
+        font-weight: 900;
+      }
+      
+      .price sup {
+        font-size: 13px;
+      }
+      
+      .price sub {
+        width: fit-content;
+        position: absolute;
+        font-size: 11px;
+        color: #5F5D6B;
+        bottom: 5px;
+        display: inline-block;
+      }
+      
+      .upgrade-btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 215px;
+        height: 40px;
+        background: #0bdd12;
+        box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
+        border-radius: 7px;
+        border: 0;
+        outline: none;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+      }
+      
+      .upgrade-btn:hover {
+        background-color: #07b90d;
+      }
+      
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+</style>
+<nav>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+</nav>
+
+<div class="content">
+    <h2>Our Services</h2>
+    <div class="service-item">
+        <img src="/static/web-development.png" alt="Web Development" class="animated-img">
+        <h3>Web Development</h3>
+        <p>We create responsive and user-friendly websites tailored to your business needs.</p>
+        <div class="modal--footer">
+            <label class="price"><sup>$</sup>20<sub>/mo</sub></label>
+            <button class="upgrade-btn">Upgrade to PRO</button>
+          </div>
+        </form>
+    </div><div class="modal">
+    <form class="form">
+      <div class="banner"></div>
+      <label class="title">Get New customers faster</label>
+      <p class="description">Grow your customer base with our tools, you can reach a much bigger and better fan community. Go PRO now! </p>
+      <div class="tab-container">
+        <button class="tab tab--1">Monthly</button>
+        <button class="tab tab--2">Annual</button>
+        <div class="indicator"></div>
+      </div>
+  
+      <div class="benefits">
+        <span>What we offer</span>
+        <ul>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" height="16" width="16">
+              <rect fill="black" rx="8" height="16" width="16"></rect>
+              <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="white" d="M5 8.5L7.5 10.5L11 6"></path>
+            </svg>
+            <span>Grow your customer with our social network tools</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" height="16" width="16">
+              <rect fill="black" rx="8" height="16" width="16"></rect>
+              <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="white" d="M5 8.5L7.5 10.5L11 6"></path>
+            </svg>
+            <span>Use E-mail automations to promote your products.</span>
+          </li>
+        </ul>
+      </div>
+    <div class="modal--footer">
+        <label class="price"><sup>$</sup>9<sub>/mo</sub></label>
+        <button class="upgrade-btn">Upgrade to PRO</button>
+      </div>
+    </form>
+  </div>
+    <div class="service-item">
+        <img src="/static/OIP.jpg" alt="Mobile App Development" class="animated-img">
+        <h3>Mobile App Development</h3>
+        <p>Building innovative and feature-rich mobile applications for various platforms.</p>
+    </div>
+    <div class="service-item">
+        <img src="/static/download.jpg" alt="Digital Marketing" class="animated-img">
+        <h3>Digital Marketing</h3>
+        <p>Strategic digital marketing solutions to boost your online presence and reach your target audience.</p>
+    </div>
+   
+    <div class="service-item">
+        <img src="/static/download1.jpg" alt="Graphic Design" class="animated-img">
+        <h3>Graphic Design</h3>
+        <p>Creative and visually appealing graphic design services for your brand and marketing materials.</p>
+    </div>
+</div>
+
+  
+      
+
+<footer>
+    &copy; 2023 Your Company. All rights reserved.
+</footer>
+
+{% endblock body %}

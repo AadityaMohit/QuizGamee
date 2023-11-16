@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<style>
+    .body{
+        background: url('background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    .container {
+        background-image: url("/static/quiz4.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .info {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 30px; /* Increase padding for more space */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        margin: 0; /* Remove the margin */
+    }
+
+    .info form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0; /* Remove the margin */
+    }
+
+    .info h2 {
+        font-size: 28px; /* Larger font size */
+        margin: 15px 0; /* Increased margin */
+    }
+
+    .info input[type="text"] {
+        padding: 15px; /* Increased padding */
+        margin: 10px 0; /* Increased margin */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 18px; /* Larger font size */
+    }
+
+    .info input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 15px; /* Increased padding */
+        border: none;
+        border-radius: 5px;
+        width: 50%;
+        cursor: pointer;
+        font-size: 20px; /* Larger font size */
+    }
+    .info input:hover{
+        background-color: rgb(16, 239, 16);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .info {
+            padding: 20px; /* Adjust padding for smaller screens */
+        }
+
+        .info h2 {
+            font-size: 24px; /* Smaller font size for smaller screens */
+        }
+
+        .info input[type="text"] {
+            padding: 10px; /* Smaller padding for smaller screens */
+            font-size: 16px; /* Smaller font size for smaller screens */
+        }
+
+        .info input[type="submit"] {
+            padding: 10px; /* Smaller padding for smaller screens */
+            font-size: 18px; /* Smaller font size for smaller screens */
+        }
+    }
+</style>
+<div class="typewriter">
+    <h1 id="text"></h1>
+</div>
+<script src="script.js"></script>
+<div class="container">
+    <div class="info">
+        <form action="{% url "home" %}" method="post">
+            {% csrf_token %}
+            <h2>Enter your information</h2>
+            <input type="text" id="name" name="name" placeholder="Your full name">
+            <input type="text" id="age" name="age" placeholder="Your age">
+            <input type="text" id="stream" name="stream" placeholder="Your stream">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+{% endblock body %}

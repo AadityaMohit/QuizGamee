@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block body %}
+<STYLE>
+    body {
+        font-family: 'YourChosenFont', sans-serif;
+        background-image: url('background-image.jpg');
+        background-size: cover;
+        /* Add more font and background properties as needed */
+    }
+
+    button {
+        text-decoration: none;
+        position: relative;
+        border: none;
+        font-size: 14px;
+        font-family: inherit;
+        color: #fff;
+        width: 9em;
+        height: 3em;
+        line-height: 2em;
+        text-align: center;
+        background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        background-size: 300%;
+        border-radius: 30px;
+        z-index: 1;
+      }
+    
+    button:hover {
+        animation: ani 8s linear infinite;
+        border: none;
+    }
+    
+    @keyframes ani {
+        0% {
+            background-position: 0%;
+        }
+    
+        100% {
+            background-position: 400%;
+        }
+    }
+    
+    button:before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        z-index: -1;
+        background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        background-size: 400%;
+        border-radius: 35px;
+        transition: 1s;
+    }
+    
+    button:hover::before {
+        filter: blur(20px);
+    }
+    
+    button:active {
+        background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    }
+
+    .confirmation-message {
+        text-align: center;
+        color: #333;
+        /* Add more styling as needed */
+    }
+
+    .contact-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px 0;
+        /* Add more styling as needed */
+    }
+
+    .additional-info {
+        text-align: center;
+        /* Add more styling as needed */
+    }
+
+    .additional-info a {
+        display: block;
+        margin: 10px 0;
+        color: #fff;
+        background: linear-gradient(90deg, #e96443, #904e95);
+        padding: 10px;
+        border-radius: 5px;
+        /* Add more styling as needed */
+    }
+
+    .social-media {
+        text-align: center;
+        /* Add more styling as needed */
+    }
+
+    .social-media a {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        color: #fff;
+        background: linear-gradient(90deg, #e96443, #904e95);
+        border-radius: 50%;
+        /* Add more styling as needed */
+    }
+
+    .return-home {
+        background: #4CAF50;
+        color: white;
+        /* Add more styling as needed */
+    }
+</STYLE>
+
+<div class="confirmation-message">
+    <h2>Thank you for contacting us!</h2>
+    <p>Your inquiry has been received, and we will get back to you shortly.</p>
+</div>
+
+<div class="contact-card">
+    <h3>Contact Details</h3>
+    <p>Email: aadityamohit0308@gmail.com</p>
+    <p>Phone:8540094216</p>
+</div>
+
+<div class="additional-info">
+    <p>While you wait, feel free to explore more:</p>
+    <a href="/faq" class="return-home">Frequently Asked Questions</a>
+    <a href="/products" class="return-home">Explore Our Products</a>
+</div>
+
+<div class="social-media">
+    <p>Connect with us on social media:</p>
+    <a href="https://facebook.com/yourcompany" target="_blank" class="return-home">Facebook</a>
+    <a href="https://twitter.com/yourcompany" target="_blank" class="return-home">Twitter</a>
+    <!-- Add more social media links as needed -->
+</div>
+
+<a href="{% url 'home' %}">
+    <button class="return-home">Return Home</button>
+</a>
+
+<!-- Add more sections as necessary -->
+
+<!-- Add your JavaScript scripts here -->
+
+{% endblock body %}
